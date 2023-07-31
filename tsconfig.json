@@ -20,8 +20,9 @@
       }
     ],
     "paths": {
-      "@/lib": ["./src/lib"],
+      "@/const/*": ["./src/Const/*"],
       "@/data/*": ["./src/Data/*"],
+      "@/lib": ["./src/lib"],
       "@/presentation/*": ["./src/Presentation/*"],
     }
   },
