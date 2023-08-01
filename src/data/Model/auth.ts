@@ -1,13 +1,17 @@
 type UserRequestType = {
-  id: string;
   password: string;
+  username: string;
 };
 
 type UserResponseType = {
   email: string;
-  id: string;
+  firstName: string;
+  gender: string;
+  id: number;
   image: string;
-  name: string;
+  lastName: string;
+  token: string;
+  username: string;
 };
 
 export type { UserRequestType, UserResponseType };
