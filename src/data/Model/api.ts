@@ -1,3 +1,7 @@
+type APIResource = {
+  url: string;
+};
+
 type ApiRequestType = {
   limit: number;
   offset: number;
@@ -14,6 +18,32 @@ type ApiResponseType = {
 
 type GetServerURLType = Pick<ApiRequestType, 'type'>;
 
+type ItemApiResponseData = {
+  id: number;
+  name: string;
+  cost: number;
+  fling_power: number;
+  fling_effect: NameAPIResource;
+  attributes: NameAPIResource[];
+  category: NameAPIResource;
+  effect_entries: VerboseEffect[];
+  flavor_text_entries: VersionGroupFlavorText[];
+  game_indices: GenerationGameIndex[];
+  names: Name[];
+  sprites: ItemSprites;
+  held_by_pokemon: ItemHolderPokemon;
+  baby_trigger_for: APIResource;
+  machines: MachineVersionDetail[];
+};
+
+type ItemDataType = {
+  category: NameAPIResource;
+  id: number;
+  image: ItemSprites;
+  name: string;
+  url: string;
+};
+
 type LocalRequestType = Pick<ApiRequestType, 'limit' | 'offset' | 'type'>;
 
 type LocalResponseType = {
@@ -22,19 +52,6 @@ type LocalResponseType = {
 
 type NameAPIResource = {
   name: string;
-  url: string;
-};
-
-type PokemonDataType = {
-  id: number;
-  image: string;
-  name: string;
-  type: string;
-  url: string;
-};
-
-type ApiDetailDataRequestType = {
-  type: string;
   url: string;
 };
 
@@ -58,6 +75,18 @@ type PokemonApiResponseType = {
   stats: PokemonStat[];
   types: PokemonType[];
 };
+
+
+type PokemonDataType = {
+  id: number;
+  image: string;
+  name: string;
+  types: PokemonType[];
+  url: string;
+};
+
+
+// api.ts 안에서만 사용
 
 type PokemonAbility = {
   is_hidden: boolean;
@@ -118,24 +147,6 @@ type VersionGameIndex = {
   version: NameAPIResource;
 };
 
-type ItemApiResponseData = {
-  id: number;
-  name: string;
-  cost: number;
-  fling_power: number;
-  fling_effect: NameAPIResource;
-  attributes: NameAPIResource[];
-  category: NameAPIResource;
-  effect_entries: VerboseEffect[];
-  flavor_text_entries: VersionGroupFlavorText[];
-  game_indices: GenerationGameIndex[];
-  names: Name[];
-  sprites: ItemSprites;
-  held_by_pokemon: ItemHolderPokemon;
-  baby_trigger_for: APIResource;
-  machines: MachineVersionDetail[];
-};
-
 type VerboseEffect = {
   effect: string;
   short_effect: string;
@@ -167,10 +178,6 @@ type ItemHolderPokemonVersionDetail = {
   version: NameAPIResource;
 };
 
-type APIResource = {
-  url: string;
-};
-
 type ItemSprites = {
   default: string;
 };
@@ -180,15 +187,8 @@ type MachineVersionDetail = {
   version_group: NameAPIResource;
 };
 
-type ItemDataType = {
-  category: string;
-  id: number;
-  image: string;
-  name: string;
-};
-
 export type {
-  ApiDetailDataRequestType,
+  APIResource,
   ApiRequestType,
   ApiResponseType,
   GetServerURLType,
