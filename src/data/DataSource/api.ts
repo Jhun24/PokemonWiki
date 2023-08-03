@@ -4,7 +4,7 @@ import { ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/const/.';
 import {
   ApiRequestType,
   ApiResponseType,
-  getServerURLType,
+  GetServerURLType,
   LocalRequestType,
   LocalResponseType,
   NameAPIResource,
@@ -12,7 +12,7 @@ import {
 
 global.localStorage = new LocalStorage('./scratch');
 
-const getServerURL = ({ type = 'pokemon' }: getServerURLType): string => {
+const getServerURL = ({ type = 'pokemon' }: GetServerURLType): string => {
   if (type === 'item') return ITEM_SERVER_URL;
   return POKEMON_SERVER_URL;
 };

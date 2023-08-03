@@ -12,7 +12,7 @@ type ApiResponseType = {
   results: NameAPIResource[];
 };
 
-type getServerURLType = Pick<ApiRequestType, 'type'>;
+type GetServerURLType = Pick<ApiRequestType, 'type'>;
 
 type LocalRequestType = Pick<ApiRequestType, 'limit' | 'offset' | 'type'>;
 
@@ -25,11 +25,178 @@ type NameAPIResource = {
   url: string;
 };
 
+type PokemonDataType = {
+  id: number;
+  image: string;
+  name: string;
+  type: string;
+  url: string;
+};
+
+type ApiDetailDataRequestType = {
+  type: string;
+  url: string;
+};
+
+type PokemonApiResponseType = {
+  id: number;
+  name: string;
+  base_experience: number;
+  height: number;
+  is_default: boolean;
+  order: number;
+  weight: number;
+  abilities: PokemonAbility[];
+  forms: NameAPIResource[];
+  game_indices: VersionGameIndex[];
+  held_items: PokemonHeldItem[];
+  location_area_encounters: string;
+  moves: PokemonMove[];
+  past_types: PokemonTypePast[];
+  sprites: PokemonSprites;
+  species: NameAPIResource[];
+  stats: PokemonStat[];
+  types: PokemonType[];
+};
+
+type PokemonAbility = {
+  is_hidden: boolean;
+  slot: number;
+  ability: NameAPIResource;
+};
+
+type PokemonType = {
+  slot: number;
+  type: NameAPIResource;
+};
+
+type PokemonTypePast = {
+  generation: NameAPIResource;
+  types: PokemonType[];
+};
+
+type PokemonHeldItem = {
+  item: NameAPIResource;
+  version_details: PokemonHeldItemVersion[];
+};
+
+type PokemonHeldItemVersion = {
+  version: NameAPIResource;
+  rarity: number;
+};
+
+type PokemonMove = {
+  move: NameAPIResource;
+  version_group_details: PokemonMoveVersion[];
+};
+
+type PokemonMoveVersion = {
+  move_learn_method: NameAPIResource;
+  version_group: NameAPIResource;
+  level_learned_at: number;
+};
+
+type PokemonStat = {
+  stat: NameAPIResource;
+  effort: number;
+  base_stat: number;
+};
+
+type PokemonSprites = {
+  front_default: string;
+  front_shiny: string;
+  front_female: string;
+  front_shiny_female: string;
+  back_default: string;
+  back_shiny: string;
+  back_female: string;
+  back_shiny_female: string;
+};
+
+type VersionGameIndex = {
+  game_index: number;
+  version: NameAPIResource;
+};
+
+type ItemApiResponseData = {
+  id: number;
+  name: string;
+  cost: number;
+  fling_power: number;
+  fling_effect: NameAPIResource;
+  attributes: NameAPIResource[];
+  category: NameAPIResource;
+  effect_entries: VerboseEffect[];
+  flavor_text_entries: VersionGroupFlavorText[];
+  game_indices: GenerationGameIndex[];
+  names: Name[];
+  sprites: ItemSprites;
+  held_by_pokemon: ItemHolderPokemon;
+  baby_trigger_for: APIResource;
+  machines: MachineVersionDetail[];
+};
+
+type VerboseEffect = {
+  effect: string;
+  short_effect: string;
+  language: NameAPIResource;
+};
+
+type VersionGroupFlavorText = {
+  text: string;
+  language: NameAPIResource;
+};
+
+type GenerationGameIndex = {
+  game_index: number;
+  generation: NameAPIResource;
+};
+
+type Name = {
+  name: string;
+  language: NameAPIResource;
+};
+
+type ItemHolderPokemon = {
+  pokemon: NameAPIResource;
+  version_details: ItemHolderPokemonVersionDetail[];
+};
+
+type ItemHolderPokemonVersionDetail = {
+  rarity: number;
+  version: NameAPIResource;
+};
+
+type APIResource = {
+  url: string;
+};
+
+type ItemSprites = {
+  default: string;
+};
+
+type MachineVersionDetail = {
+  machine: APIResource;
+  version_group: NameAPIResource;
+};
+
+type ItemDataType = {
+  category: string;
+  id: number;
+  image: string;
+  name: string;
+};
+
 export type {
+  ApiDetailDataRequestType,
   ApiRequestType,
   ApiResponseType,
-  getServerURLType,
+  GetServerURLType,
+  ItemApiResponseData,
+  ItemDataType,
   LocalRequestType,
   LocalResponseType,
   NameAPIResource,
+  PokemonApiResponseType,
+  PokemonDataType,
 };
