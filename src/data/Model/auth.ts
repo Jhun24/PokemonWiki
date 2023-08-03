@@ -1,9 +1,9 @@
-type UserRequestType = {
+type AuthRequestType = {
   password: string;
   username: string;
 };
 
-type UserResponseType = {
+type AuthResponseType = {
   email: string;
   firstName: string;
   gender: string;
@@ -14,4 +14,16 @@ type UserResponseType = {
   username: string;
 };
 
-export type { UserRequestType, UserResponseType };
+type UserLocalStorageRequestType = Pick<AuthResponseType, 'username'>;
+
+type UserLocalStorageResponseType = Pick<
+  AuthResponseType,
+  'email' | 'image' | 'username'
+>;
+
+export type {
+  AuthRequestType,
+  AuthResponseType,
+  UserLocalStorageRequestType,
+  UserLocalStorageResponseType,
+};
