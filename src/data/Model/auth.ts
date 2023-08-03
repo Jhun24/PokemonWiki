@@ -14,16 +14,6 @@ type AuthResponseType = {
   username: string;
 };
 
-type UserLocalStorageRequestType = Pick<AuthResponseType, 'username'>;
+type LogoutType = Pick<AuthResponseType, 'username'>;
 
-type UserLocalStorageResponseType = Pick<
-  AuthResponseType,
-  'email' | 'image' | 'username'
->;
-
-export type {
-  AuthRequestType,
-  AuthResponseType,
-  UserLocalStorageRequestType,
-  UserLocalStorageResponseType,
-};
+export type { AuthRequestType, AuthResponseType, LogoutType };

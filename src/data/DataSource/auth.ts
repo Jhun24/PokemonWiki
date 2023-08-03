@@ -4,8 +4,7 @@ import { AUTH_URL } from '@/const/.';
 import {
   AuthRequestType,
   AuthResponseType,
-  UserLocalStorageRequestType,
-  UserLocalStorageResponseType,
+  LogoutType,
 } from '@/data/Model/auth';
 
 global.localStorage = new LocalStorage('./scratch');
@@ -26,11 +25,11 @@ const Login = async ({
   return res.json();
 };
 
-const Logout = async ({ username }: UserLocalStorageRequestType) => {
+const Logout = ({ username }: LogoutType): void => {
   localStorage.removeItem(username);
 };
 
-const setDummyData = async () => {
+const setDummyData = (): void => {
   const dummyUser: AuthRequestType[] = [
     {
       password: '0lelplR',
@@ -41,8 +40,8 @@ const setDummyData = async () => {
       username: '9uQFF1Lh',
     },
   ];
-
-  localStorage.setItem('userData', JSON.stringify(dummyUser));
+  if (localStorage.getItem('userData') === null)
+    localStorage.setItem('userData', JSON.stringify(dummyUser));
 };
 
 export { Login, Logout, setDummyData };

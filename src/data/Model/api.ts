@@ -2,6 +2,7 @@ type ApiRequestType = {
   limit: number;
   offset: number;
   next?: string;
+  type?: string;
 };
 
 type ApiResponseType = {
@@ -11,7 +12,9 @@ type ApiResponseType = {
   results: NameAPIResource[];
 };
 
-type LocalRequestType = Pick<ApiRequestType, 'limit' | 'offset'>;
+type getServerURLType = Pick<ApiRequestType, 'type'>;
+
+type LocalRequestType = Pick<ApiRequestType, 'limit' | 'offset' | 'type'>;
 
 type LocalResponseType = {
   results: boolean | NameAPIResource[];
@@ -25,6 +28,7 @@ type NameAPIResource = {
 export type {
   ApiRequestType,
   ApiResponseType,
+  getServerURLType,
   LocalRequestType,
   LocalResponseType,
   NameAPIResource,

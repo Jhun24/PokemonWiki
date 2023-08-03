@@ -1,9 +1,10 @@
 import { LocalStorage } from 'node-localstorage';
 
-import { POKEMON_SERVER_URL } from '@/const/.';
+import { ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/const/.';
 import {
   ApiRequestType,
   ApiResponseType,
+  getServerURLType,
   LocalRequestType,
   LocalResponseType,
   NameAPIResource,
@@ -11,15 +12,21 @@ import {
 
 global.localStorage = new LocalStorage('./scratch');
 
-const getPokemonList = async ({
+const getServerURL = ({ type = 'pokemon' }: getServerURLType): string => {
+  if (type === 'item') return ITEM_SERVER_URL;
+  return POKEMON_SERVER_URL;
+};
+
+const getAPIDataList = async ({
   limit,
   offset,
   next,
+  type = 'pokemon',
 }: ApiRequestType): Promise<ApiResponseType> => {
   const URL: string =
     typeof next !== 'undefined'
       ? next
-      : `${POKEMON_SERVER_URL}/?offset=${offset}&limit=${limit}`;
+      : `${getServerURL({ type })}/?offset=${offset}&limit=${limit}`;
   const res = await fetch(URL, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -27,11 +34,12 @@ const getPokemonList = async ({
   return res.json();
 };
 
-const getPokemonLocalList = ({
+const getLocalDataList = ({
   limit,
   offset,
+  type = 'pokemon',
 }: LocalRequestType): Promise<LocalResponseType> => {
-  const localStringData = localStorage.getItem('pokemon');
+  const localStringData = localStorage.getItem(type);
   if (localStringData === null)
     return new Promise((resolve) => resolve({ results: false }));
   const data: NameAPIResource[] = JSON.parse(localStringData);
@@ -40,4 +48,4 @@ const getPokemonLocalList = ({
   return new Promise((resolve) => resolve({ results: data }));
 };
 
-export { getPokemonList, getPokemonLocalList };
+export { getAPIDataList, getLocalDataList };
