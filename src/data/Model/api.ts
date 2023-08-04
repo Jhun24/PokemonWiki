@@ -76,7 +76,6 @@ type PokemonApiResponseType = {
   types: PokemonType[];
 };
 
-
 type PokemonDataType = {
   id: number;
   image: string;
@@ -84,7 +83,6 @@ type PokemonDataType = {
   types: PokemonType[];
   url: string;
 };
-
 
 // api.ts 안에서만 사용
 
