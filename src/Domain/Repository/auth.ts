@@ -9,7 +9,6 @@ type LoginType = {
 }
 
 interface AuthRepository {
-  getUserData({isAuth}: GetUserDataType): Promise<UserEntity>;
   login({password, username}: LoginType): Promise<UserEntity>;
   logout(): Promise<void>;
 }
