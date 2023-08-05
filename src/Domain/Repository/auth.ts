@@ -1,8 +1,16 @@
-import { AuthRequestType, AuthResponseType } from "@/data/Model/auth";
+import UserEntity from "@/Domain/Entity/user";
+
+type GetUserDataType = {
+  isAuth: boolean;
+}
+type LoginType = {
+  password: string;
+  username: string;
+}
 
 interface AuthRepository {
-  getUserData(isAuth: Boolean): Promise<AuthResponseType>;
-  login(req: AuthRequestType): Promise<AuthResponseType>;
+  getUserData({isAuth}: GetUserDataType): Promise<UserEntity>;
+  login({password, username}: LoginType): Promise<UserEntity>;
   logout(): Promise<void>;
 }
 

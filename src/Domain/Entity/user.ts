@@ -19,3 +19,5 @@ class UserEntity {
     this.username = ""
   }
 }
+
+export default UserEntity;

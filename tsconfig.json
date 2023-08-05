@@ -23,6 +23,8 @@
       "@/const/*": ["./src/Const/*"],
       "@/data/DataSource/*": ["./src/Data/DataSource/*"],
       "@/data/Model/*": ["./src/Data/Model/*"],
+      "@/Domain/Entity/*": ["./src/Domain/Entity/*"],
+      "@/Domain/Repository/*": ["./src/Domain/Repository/*"]
       "@/lib/*": ["./src/lib"],
       "@/presentation/*": ["./src/Presentation/*"],
     }
