@@ -1,22 +1,22 @@
 class UserEntity {
-  image: string;
-  lastName: string;
-  token: string;
-  username: string;
-  email: string;
-  firstName: string;
-  gender: string;
-  id: number;
+  image: string | null;
+  lastName: string | null;
+  token: string | null;
+  username: string | null;
+  email: string | null;
+  firstName: string | null;
+  gender: string | null;
+  id: number | null;
 
-  constructor(){ 
-    this.email = "";
-    this.firstName = "";
-    this.gender = "";
-    this.id = 0;
-    this.image = "";
-    this.lastName = "";
-    this.token = "";
-    this.username = ""
+  constructor() {
+    this.email = null;
+    this.firstName = null;
+    this.gender = null;
+    this.id = null;
+    this.image = null;
+    this.lastName = null;
+    this.token = null;
+    this.username = null;
   }
 }
 

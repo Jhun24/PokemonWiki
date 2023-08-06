@@ -1,4 +1,4 @@
-import { AuthResponseType } from "@/data/Model/auth";
+import { AuthResponseType } from '@/data/Model/auth';
 
 class AuthEntity {
   isAuth: boolean;
