@@ -1,18 +1,17 @@
-import UserEntity from '../Entity/user';
+import UserEntity from '@/Domain/Entity/user';
+import FavoriteEntity from '@/Domain/Entity/favorite';
 
 type GetUserDataType = {
   isAuth: boolean;
 };
 
 type GetFavoriteType = {
-  limit: number;
-  offset: number;
   username: string;
 };
 
 interface UserRepository {
   getUserData({ isAuth }: GetUserDataType): Promise<UserEntity>;
-  getFavorite({ limit, offset, username }: GetFavoriteType): Promise<>;
+  getFavorite({ username }: GetFavoriteType): Promise<FavoriteEntity>;
 }
 
 export type { UserRepository };

@@ -1,6 +1,6 @@
-import { FavoriteType } from "@/Domain/Entity/type/favorite";
-import { ItemDataType } from "@/Domain/Entity/type/item";
-import { PokemonDataType } from "@/Domain/Entity/type/pokemon";
+import { FavoriteType } from './type/favorite';
+import { ItemDataType } from './type/item';
+import { PokemonDataType } from './type/pokemon';
 
 class FavoriteEntity {
   item: FavoriteType[] | null;
@@ -19,7 +19,7 @@ class FavoriteEntity {
           returnItem.push(d);
         }
       }
-      if(returnItem.length === 0) return null;
+      if (returnItem.length === 0) return null;
       return returnItem;
     }
     if (this.type === 'item') {
@@ -29,34 +29,34 @@ class FavoriteEntity {
           returnItem.push(d);
         }
       }
-      if(returnItem.length === 0) return null;
+      if (returnItem.length === 0) return null;
       return returnItem;
     }
     return this.item;
   }
-  saveItem({category, id, image, name, url}: ItemDataType){
+  saveItem({ category, id, image, name, url }: ItemDataType) {
     const saveData: FavoriteType = {
-        type: "item",
-        item: {
-            category: category,
-            id: id,
-            image: image,
-            name: name,
-            url: url
-        }
+      type: 'item',
+      item: {
+        category: category,
+        id: id,
+        image: image,
+        name: name,
+        url: url,
+      },
     };
     return saveData;
   }
-  savePokemon({id, image, name, types, url}: PokemonDataType){
+  savePokemon({ id, image, name, types, url }: PokemonDataType) {
     const saveData: FavoriteType = {
-        type: "pokemon",
-        item: {
-            id: id,
-            image: image,
-            name: name,
-            types: types,
-            url: url,
-        }
+      type: 'pokemon',
+      item: {
+        id: id,
+        image: image,
+        name: name,
+        types: types,
+        url: url,
+      },
     };
     return saveData;
   }

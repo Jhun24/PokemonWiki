@@ -1,9 +1,9 @@
-import {ItemDataType} from '@/Domain/Entity/type/item';
-import {PokemonDataType } from '@/Domain/Entity/type/pokemon';
+import { ItemDataType } from './item';
+import { PokemonDataType } from './pokemon';
 
 type FavoriteType = {
-    type: string;
-    item: ItemDataType | PokemonDataType;
-  };
+  type: string;
+  item: ItemDataType | PokemonDataType;
+};
 
 export type { FavoriteType };

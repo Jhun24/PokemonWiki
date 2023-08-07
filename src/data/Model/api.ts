@@ -56,24 +56,24 @@ type NameAPIResource = {
 };
 
 type PokemonApiResponseType = {
-  id: number;
-  name: string;
-  base_experience: number;
-  height: number;
-  is_default: boolean;
-  order: number;
-  weight: number;
   abilities: PokemonAbility[];
+  base_experience: number;
   forms: NameAPIResource[];
   game_indices: VersionGameIndex[];
+  height: number;
   held_items: PokemonHeldItem[];
+  id: number;
+  is_default: boolean;
   location_area_encounters: string;
   moves: PokemonMove[];
+  name: string;
+  order: number;
   past_types: PokemonTypePast[];
-  sprites: PokemonSprites;
   species: NameAPIResource[];
+  sprites: PokemonSprites;
   stats: PokemonStat[];
   types: PokemonType[];
+  weight: number;
 };
 
 type PokemonDataType = {
