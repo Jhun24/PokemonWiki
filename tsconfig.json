@@ -24,6 +24,7 @@
       "@/data/DataSource/*": ["./src/Data/DataSource/*"],
       "@/data/Model/*": ["./src/Data/Model/*"],
       "@/Domain/Entity/*": ["./src/Domain/Entity/*"],
+      "@/Domain/Entity/type/*": ["./src/Domain/Entity/type"],
       "@/Domain/Repository/*": ["./src/Domain/Repository/*"],
       "@/lib/*": ["./src/lib"],
       "@/presentation/*": ["./src/Presentation/*"],

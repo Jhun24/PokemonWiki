@@ -1,40 +1,9 @@
-type NameAPIResource = {
-  name: string;
-  url: string;
-};
-
-type ItemSprites = {
-  default: string;
-};
-
-type PokemonType = {
-  slot: number;
-  type: NameAPIResource;
-};
-
-type ItemDataType = {
-  category: NameAPIResource;
-  id: number;
-  image: ItemSprites;
-  name: string;
-  url: string;
-};
-
-type PokemonDataType = {
-  id: number;
-  image: string;
-  name: string;
-  types: PokemonType[];
-  url: string;
-};
-
-type ItemType = {
-  type: string;
-  item: ItemDataType | PokemonDataType;
-};
+import { FavoriteType } from "@/Domain/Entity/type/favorite";
+import { ItemDataType } from "@/Domain/Entity/type/item";
+import { PokemonDataType } from "@/Domain/Entity/type/pokemon";
 
 class FavoriteEntity {
-  item: ItemType[] | null;
+  item: FavoriteType[] | null;
   type: string;
   constructor() {
     this.item = null;
@@ -44,7 +13,7 @@ class FavoriteEntity {
   getItemList() {
     if (this.item === null) return null;
     if (this.type === 'pokemon') {
-      let returnItem: ItemType[] = [];
+      let returnItem: FavoriteType[] = [];
       for (const d of this.item) {
         if (d.type === 'pokemon') {
           returnItem.push(d);
@@ -54,7 +23,7 @@ class FavoriteEntity {
       return returnItem;
     }
     if (this.type === 'item') {
-      let returnItem: ItemType[] = [];
+      let returnItem: FavoriteType[] = [];
       for (const d of this.item) {
         if (d.type === 'item') {
           returnItem.push(d);
@@ -64,6 +33,32 @@ class FavoriteEntity {
       return returnItem;
     }
     return this.item;
+  }
+  saveItem({category, id, image, name, url}: ItemDataType){
+    const saveData: FavoriteType = {
+        type: "item",
+        item: {
+            category: category,
+            id: id,
+            image: image,
+            name: name,
+            url: url
+        }
+    };
+    return saveData;
+  }
+  savePokemon({id, image, name, types, url}: PokemonDataType){
+    const saveData: FavoriteType = {
+        type: "pokemon",
+        item: {
+            id: id,
+            image: image,
+            name: name,
+            types: types,
+            url: url,
+        }
+    };
+    return saveData;
   }
 }
 
