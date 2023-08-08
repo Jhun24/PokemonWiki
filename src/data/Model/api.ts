@@ -19,21 +19,21 @@ type ApiResponseType = {
 type GetServerURLType = Pick<ApiRequestType, 'type'>;
 
 type ItemApiResponseData = {
-  id: number;
-  name: string;
-  cost: number;
-  fling_power: number;
-  fling_effect: NameAPIResource;
   attributes: NameAPIResource[];
+  baby_trigger_for: APIResource;
   category: NameAPIResource;
+  cost: number;
   effect_entries: VerboseEffect[];
   flavor_text_entries: VersionGroupFlavorText[];
+  fling_effect: NameAPIResource;
+  fling_power: number;
   game_indices: GenerationGameIndex[];
+  held_by_pokemon: ItemHolderPokemon;
+  id: number;
+  machines: MachineVersionDetail[];
+  name: string;
   names: Name[];
   sprites: ItemSprites;
-  held_by_pokemon: ItemHolderPokemon;
-  baby_trigger_for: APIResource;
-  machines: MachineVersionDetail[];
 };
 
 type NameAPIResource = {

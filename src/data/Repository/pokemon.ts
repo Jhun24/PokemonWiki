@@ -7,8 +7,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
   constructor() {
     this.apiDataSource = new ApiDataSource();
   }
-  async getPokemon({ offset }: { offset: number; }): Promise<PokemonEntity[]> {
-    const res = await this.apiDataSource.getAPIDataList({offset});
+  async getPokemon({ offset }: { offset: number }): Promise<PokemonEntity[]> {
+    const res = await this.apiDataSource.getAPIDataList({ offset });
     let dataArray: PokemonEntity[] = [];
     for (const d of res.results) {
       const url = d.url;

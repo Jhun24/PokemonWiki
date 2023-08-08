@@ -29,7 +29,7 @@ class ApiDataSource {
     });
     return await res.json();
   }
-  
+
   async getPokemonDetailData({
     url,
   }: APIResource): Promise<PokemonApiResponseType> {
