@@ -16,7 +16,7 @@ class ApiDataSource {
   async getAPIDataList({
     next,
     limit = 20,
-    offset = 20,
+    offset,
     type = 'pokemon',
   }: ApiRequestType): Promise<ApiResponseType> {
     const URL: string =

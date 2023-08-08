@@ -3,9 +3,9 @@ type APIResource = {
 };
 
 type ApiRequestType = {
+  offset: number;
   limit?: number;
   next?: string;
-  offset?: number;
   type?: string;
 };
 

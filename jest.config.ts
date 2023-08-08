@@ -93,6 +93,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@/Const": "<rootDir>/src/Const",
     "^@/Data/DataSource/(.*)$": "<rootDir>/src/Data/DataSource/$1",
+    "^@/Data/Repository/(.*)$": "<rootDir>/src/Data/Repository/$1",
     "^@/Domain/Entity/(.*)$": "<rootDir>/src/Domain/Entity/$1",
 
   },
