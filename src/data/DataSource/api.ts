@@ -1,6 +1,6 @@
 import { LocalStorage } from 'node-localstorage';
 
-import { IMAGE_URL, ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/const/.';
+import { IMAGE_URL, ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/Const/.';
 import {
   APIResource,
   ApiRequestType,

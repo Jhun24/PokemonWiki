@@ -1,5 +1,5 @@
 import { AuthRepository } from '@/Domain/Repository/auth';
-import AuthDataSource from '@/data/DataSource/auth';
+import AuthDataSource from '@/Data/DataSource/auth';
 import UserEntity from '@/Domain/Entity/user';
 
 class AuthRepositoryImpl implements AuthRepository {

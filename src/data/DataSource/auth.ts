@@ -1,13 +1,14 @@
 import { LocalStorage } from 'node-localstorage';
 
-import { AUTH_URL } from '@/const/.';
+import { AUTH_URL } from '@/Const/.';
 import {
   AuthRequestType,
   AuthResponseType,
   LogoutType,
-} from '@/data/Model/auth';
+} from '@/Data/Model/auth';
 
 global.localStorage = new LocalStorage('./scratch');
+
 class AuthDataSource {
   async login({
     password,
