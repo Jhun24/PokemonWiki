@@ -1,19 +1,19 @@
-import ItemEntity from "@/Domain/Entity/item";
-import {ItemRepository} from "@/Domain/Repository/item";
+import ItemEntity from '@/Domain/Entity/item';
+import { ItemRepository } from '@/Domain/Repository/item';
 
 type ExecuteType = {
   offset: number;
-}
+};
 
 class UseCaseGetItemList {
   private itemRepository: ItemRepository;
 
-  constructor(itemRepository: ItemRepository){
+  constructor(itemRepository: ItemRepository) {
     this.itemRepository = itemRepository;
   }
 
-  async execute({offset}: ExecuteType): Promise<ItemEntity[]>{
-    const res = await this.itemRepository.getItem({offset});
+  async execute({ offset }: ExecuteType): Promise<ItemEntity[]> {
+    const res = await this.itemRepository.getItem({ offset });
     return res;
   }
 }
