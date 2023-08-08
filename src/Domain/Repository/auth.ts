@@ -5,12 +5,7 @@ type LoginType = {
   username: string;
 };
 
-type LogoutType = {
-  username: string;
-};
-
 interface AuthRepository {
-  getUserData(): Promise<UserEntity | boolean>;
   login({ password, username }: LoginType): Promise<UserEntity>;
 }
 

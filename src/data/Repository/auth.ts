@@ -9,10 +9,6 @@ class AuthRepositoryImpl implements AuthRepository {
     this.authDataSource = new AuthDataSource();
     this.userEntity = null;
   }
-  async getUserData(): Promise<UserEntity | boolean> {
-    if (this.userEntity === null) return false;
-    return this.userEntity;
-  }
   async login({
     password,
     username,
