@@ -12,8 +12,6 @@ type LogoutType = {
 interface AuthRepository {
   getUserData(): Promise<UserEntity | boolean>;
   login({ password, username }: LoginType): Promise<UserEntity>;
-  logout({ username }: LogoutType): Promise<void>;
-  setDummy(): Promise<void>;
 }
 
 export type { AuthRepository };

@@ -24,12 +24,6 @@ class AuthRepositoryImpl implements AuthRepository {
     this.userEntity = new UserEntity(res);
     return this.userEntity;
   }
-  async logout({ username }: { username: string }): Promise<void> {
-    await this.authDataSource.logout({ username });
-  }
-  async setDummy(): Promise<void> {
-    await this.authDataSource.setDummyData();
-  }
 }
 
 export default AuthRepositoryImpl;

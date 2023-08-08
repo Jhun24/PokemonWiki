@@ -36,20 +36,6 @@ type ItemApiResponseData = {
   machines: MachineVersionDetail[];
 };
 
-type ItemDataType = {
-  category: NameAPIResource;
-  id: number;
-  image: ItemSprites;
-  name: string;
-  url: string;
-};
-
-type LocalRequestType = Pick<ApiRequestType, 'limit' | 'offset' | 'type'>;
-
-type LocalResponseType = {
-  results: boolean | NameAPIResource[];
-};
-
 type NameAPIResource = {
   name: string;
   url: string;
@@ -74,14 +60,6 @@ type PokemonApiResponseType = {
   stats: PokemonStat[];
   types: PokemonType[];
   weight: number;
-};
-
-type PokemonDataType = {
-  id: number;
-  image: string;
-  name: string;
-  types: PokemonType[];
-  url: string;
 };
 
 // api.ts 안에서만 사용
@@ -191,10 +169,6 @@ export type {
   ApiResponseType,
   GetServerURLType,
   ItemApiResponseData,
-  ItemDataType,
-  LocalRequestType,
-  LocalResponseType,
   NameAPIResource,
   PokemonApiResponseType,
-  PokemonDataType,
 };

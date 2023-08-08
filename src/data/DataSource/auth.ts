@@ -1,13 +1,9 @@
-import { LocalStorage } from 'node-localstorage';
-
-import { AUTH_URL } from '@/Const/.';
+import { AUTH_URL } from '@/Const';
 import {
   AuthRequestType,
   AuthResponseType,
   LogoutType,
 } from '@/Data/Model/auth';
-
-global.localStorage = new LocalStorage('./scratch');
 
 class AuthDataSource {
   async login({
@@ -24,25 +20,6 @@ class AuthDataSource {
     });
 
     return res.json();
-  }
-
-  async logout({ username }: LogoutType): Promise<void> {
-    localStorage.removeItem(username);
-  }
-
-  async setDummyData(): Promise<void> {
-    const dummyUser: AuthRequestType[] = [
-      {
-        password: '0lelplR',
-        username: 'kminchelle',
-      },
-      {
-        password: 'atuny0',
-        username: '9uQFF1Lh',
-      },
-    ];
-    if (localStorage.getItem('userData') === null)
-      localStorage.setItem('userData', JSON.stringify(dummyUser));
   }
 }
 
