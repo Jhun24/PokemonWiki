@@ -5,7 +5,7 @@ type ExecuteType = {
   offset: number;
 };
 
-class UseCaseGetItemList {
+class GetItemUseCase {
   private itemRepository: ItemRepository;
 
   constructor(itemRepository: ItemRepository) {

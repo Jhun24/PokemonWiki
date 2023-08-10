@@ -5,7 +5,7 @@ type ExecuteType = {
   offset: number;
 };
 
-class UseCaseGetPokemonList {
+class GetPokemonUseCase {
   private pokemonRepository: PokemonRepository;
 
   constructor(pokemonRepository: PokemonRepository) {
@@ -18,4 +18,4 @@ class UseCaseGetPokemonList {
   }
 }
 
-export default UseCaseGetPokemonList;
+export default GetPokemonUseCase;

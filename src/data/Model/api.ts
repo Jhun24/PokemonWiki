@@ -6,7 +6,6 @@ type ApiRequestType = {
   offset: number;
   limit?: number;
   next?: string;
-  type?: string;
 };
 
 type ApiResponseType = {
@@ -15,8 +14,6 @@ type ApiResponseType = {
   previous: string;
   results: NameAPIResource[];
 };
-
-type GetServerURLType = Pick<ApiRequestType, 'type'>;
 
 type ItemApiResponseData = {
   attributes: NameAPIResource[];
@@ -167,7 +164,6 @@ export type {
   APIResource,
   ApiRequestType,
   ApiResponseType,
-  GetServerURLType,
   ItemApiResponseData,
   NameAPIResource,
   PokemonApiResponseType,

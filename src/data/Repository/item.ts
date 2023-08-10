@@ -9,7 +9,7 @@ class ItemRepositoryImpl implements ItemRepository {
     this.apiDataSource = new ApiDataSource();
   }
   async getItem({ offset }: { offset: number }): Promise<ItemEntity[]> {
-    const res = await this.apiDataSource.getAPIDataList({ offset });
+    const res = await this.apiDataSource.getItemDataList({ offset });
     let dataArray: ItemEntity[] = [];
     for (const d of res.results) {
       const url = d.url;
