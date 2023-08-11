@@ -6,13 +6,13 @@ type ExecuteType = {
 };
 
 class GetPokemonUseCase {
-  private pokemonRepository: PokemonRepository;
-
-  constructor(pokemonRepository: PokemonRepository) {
-    this.pokemonRepository = pokemonRepository;
-  }
+  constructor(private pokemonRepository: PokemonRepository) {}
 
   async execute({ offset }: ExecuteType): Promise<PokemonEntity[]> {
+    const localData = await this.pokemonRepository.getPokemonLocalData({
+      offset,
+    });
+    if (localData.length !== 0) return localData;
     const res = await this.pokemonRepository.getPokemon({ offset });
     return res;
   }

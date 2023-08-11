@@ -6,11 +6,7 @@ type ExecuteType = {
 };
 
 class GetItemUseCase {
-  private itemRepository: ItemRepository;
-
-  constructor(itemRepository: ItemRepository) {
-    this.itemRepository = itemRepository;
-  }
+  constructor(private itemRepository: ItemRepository) {}
 
   async execute({ offset }: ExecuteType): Promise<ItemEntity[]> {
     const res = await this.itemRepository.getItem({ offset });
@@ -18,4 +14,4 @@ class GetItemUseCase {
   }
 }
 
-export default UseCaseGetItemList;
+export default GetItemUseCase;

@@ -18,6 +18,23 @@ class ItemRepositoryImpl implements ItemRepository {
     }
     return dataArray;
   }
+
+  getItemInFavorite({ username }: { username: string }): Promise<ItemEntity[]> {
+    return new Promise((resolve) => resolve([]));
+  }
+
+  getItemLocalData({ offset }: { offset: number }): Promise<ItemEntity[]> {
+    return new Promise((resolve) => resolve([]));
+  }
+
+  async saveItemToFavorite(
+    usernmae: string,
+    itemEntity: ItemEntity
+  ): Promise<void> {
+    const localStringData: string | null = localStorage.getItem(
+      `${usernmae}-item`
+    );
+  }
 }
 
 export default ItemRepositoryImpl;

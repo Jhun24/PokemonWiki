@@ -6,12 +6,18 @@ type GetPokemonType = {
 
 type GetPokemonInFavoriteType = {
   username: string;
-}
+};
 
 interface PokemonRepository {
   getPokemon({ offset }: GetPokemonType): Promise<PokemonEntity[]>;
-  getPokemonInFavorite({username}: GetPokemonInFavoriteType): Promise<PokemonEntity[]>;
-  savePokemonToFavorite(pokemonEntity: PokemonEntity): Promise<void>;
+  getPokemonInFavorite({
+    username,
+  }: GetPokemonInFavoriteType): Promise<PokemonEntity[]>;
+  getPokemonLocalData({ offset }: GetPokemonType): Promise<PokemonEntity[]>;
+  savePokemonToFavorite(
+    username: string,
+    pokemonEntity: PokemonEntity
+  ): Promise<void>;
 }
 
 export default PokemonRepository;
