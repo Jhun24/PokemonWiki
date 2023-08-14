@@ -8,15 +8,23 @@ type DummyDataType = {
 };
 
 class AuthRepositoryImpl implements AuthRepository {
-  constructor(
-    private authDataSource: AuthDataSource,
-    private userEntity: UserEntity
-  ) {}
+  constructor(private authDataSource: AuthDataSource) {}
+
+  getAutoLogin(): Promise<UserEntity | null> {
+    const stringLocalData: string | null = localStorage.getItem('userData');
+    if (stringLocalData === null)
+      return new Promise((resolve) => resolve(null));
+    const localUserData: UserEntity = new UserEntity(
+      JSON.parse(stringLocalData)
+    );
+    return new Promise((resolve) => resolve(localUserData));
+  }
+
   async getCredential(): Promise<UserEntity | null> {
     const stringLocalData: string | null = localStorage.getItem('userData');
     if (stringLocalData === null) return null;
-    this.userEntity = new UserEntity(JSON.parse(stringLocalData));
-    return this.userEntity;
+    const userEntity: UserEntity = new UserEntity(JSON.parse(stringLocalData));
+    return userEntity;
   }
 
   async getDummyData({
@@ -52,8 +60,8 @@ class AuthRepositoryImpl implements AuthRepository {
     username: string;
   }): Promise<UserEntity> {
     const res = await this.authDataSource.login({ password, username });
-    this.userEntity = new UserEntity(res);
-    return this.userEntity;
+    const userEntity: UserEntity = new UserEntity(res);
+    return userEntity;
   }
 
   async logout(): Promise<void> {

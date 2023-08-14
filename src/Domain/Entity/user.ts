@@ -1,13 +1,13 @@
 import { UserType } from './type/user';
 class UserEntity {
-  private email: string;
-  private firstName: string;
-  private gender: string;
-  private id: number;
-  private image: string;
-  private lastName: string;
-  private token: string;
-  private username: string;
+  email: string;
+  firstName: string;
+  gender: string;
+  id: number;
+  image: string;
+  lastName: string;
+  token: string;
+  username: string;
 
   constructor({
     email,

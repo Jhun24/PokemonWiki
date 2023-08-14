@@ -6,6 +6,7 @@ type LoginType = {
 };
 
 interface AuthRepository {
+  getAutoLogin(): Promise<UserEntity | null>;
   getCredential(): Promise<UserEntity | null>;
   getDummyData({ password, username }: LoginType): Promise<boolean>;
   login({ password, username }: LoginType): Promise<UserEntity>;
