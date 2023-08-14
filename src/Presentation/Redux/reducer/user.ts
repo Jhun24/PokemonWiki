@@ -1,34 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/Presentation/Redux/store';
+import UserEntity from '@/Domain/Entity/user';
 
 type UserType = {
-  email: string;
-  firstName: string;
-  gender: string;
-  id: number;
-  image: string;
-  lastName: string;
-  token: string;
-  username: string;
+  userEntity: UserEntity | null;
 };
 
 const initialState: UserType = {
-  email: '',
-  firstName: '',
-  gender: '',
-  id: 0,
-  image: '',
-  lastName: '',
-  token: '',
-  username: '',
-};
-
+  userEntity: null
+}
 const userReducer = createSlice({
   name: 'UserReducer',
   initialState: initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserType>) => {
-      state = action.payload;
+    setUser: (state, action: PayloadAction<UserEntity>) => {
+      state = new UserEntity(action.payload);
     },
   },
 });

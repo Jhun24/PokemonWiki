@@ -1,6 +1,7 @@
 import { useEffect, useState, ChangeEventHandler } from 'react';
+import cn from 'classnames';
 import { AuthViewModel } from '@/Presentation/ViewModel';
-import { Button, InputBox } from '@/Presentation/Component';
+import { Button, InputBox, Toast } from '@/Presentation/Component';
 import { useAppDispatch } from '@/Presentation/Redux/hook';
 import { setUser } from '@/Presentation/Redux/reducer/user';
 
@@ -11,6 +12,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {}, []);
 
@@ -27,21 +29,24 @@ const Login = () => {
       const res = await authViewModel.login({ username, password });
       dispatch(setUser(res));
     } catch (error) {
-      console.log(error);
+      setOpen(true);
     }
   };
   return (
-    <div className={style.Login}>
-      <InputBox
-        placeholder="이름을 입력해주세요"
-        onChangeHandler={onUserNameChange}
-      />
-      <InputBox
-        placeholder="비밀번호를 입력해주세요"
-        onChangeHandler={onPasswordChange}
-      />
-      <Button text="로그인" onSubmit={onSubmit} />
-    </div>
+    <>
+      <div className={style.Login}>
+        <InputBox
+          placeholder="이름을 입력해주세요"
+          onChangeHandler={onUserNameChange}
+        />
+        <InputBox
+          placeholder="비밀번호를 입력해주세요"
+          onChangeHandler={onPasswordChange}
+        />
+        <Button text="로그인" onSubmit={onSubmit} />
+      </div>
+      <Toast type="error" title='정확한 회원정보를 입력해주세요' content='asfd' open={open} setOpen={setOpen}/>
+    </>
   );
 };
 
