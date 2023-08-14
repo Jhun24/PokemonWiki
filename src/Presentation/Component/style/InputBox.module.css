@@ -1,0 +1,13 @@
+.LoginInputBox {
+  width: 300px;
+  height: 40px;
+}
+
+.LoginInput {
+  width: calc(100% - 20px);
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding-left: 20px;
+  font-size: 14px;
+}
