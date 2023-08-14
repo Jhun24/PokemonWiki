@@ -3,18 +3,33 @@ import { RootState } from '@/Presentation/Redux/store';
 import UserEntity from '@/Domain/Entity/user';
 
 type UserType = {
-  userEntity: UserEntity | null;
+  email: string;
+  firstName: string;
+  gender: string;
+  id: number;
+  image: string;
+  lastName: string;
+  token: string;
+  username: string;
 };
 
 const initialState: UserType = {
-  userEntity: null
-}
+  email: '',
+  firstName: '',
+  gender: '',
+  id: 0,
+  image: '',
+  lastName: '',
+  token: '',
+  username: '',
+};
+
 const userReducer = createSlice({
   name: 'UserReducer',
   initialState: initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserEntity>) => {
-      state = new UserEntity(action.payload);
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state = action.payload;
     },
   },
 });

@@ -27,7 +27,7 @@ const Login = () => {
   const onSubmit = async () => {
     try {
       const res = await authViewModel.login({ username, password });
-      dispatch(setUser(res));
+      dispatch(setUser({...res}));
     } catch (error) {
       setOpen(true);
     }
