@@ -1,5 +1,5 @@
 import { useEffect, useState, ChangeEventHandler } from 'react';
-import cn from 'classnames';
+import { useRouter } from 'next/router'
 import { AuthViewModel } from '@/Presentation/ViewModel';
 import { Button, InputBox, Toast } from '@/Presentation/Component';
 import { useAppDispatch } from '@/Presentation/Redux/hook';
@@ -10,11 +10,29 @@ import style from '@/Presentation/Component/style/Login.module.css';
 const Login = () => {
   const authViewModel = new AuthViewModel();
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter();
+  const [isAuth, setIsAuth] = useState(false);
   const [open, setOpen] = useState(false);
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    checkAutoLogin();
+  }, [])
+
+  useEffect(() => {
+    if(isAuth) router.push('/main');
+  }, [isAuth]);
+
+  const checkAutoLogin = async () => {
+    const res = await authViewModel.autoLogin();
+    if(!res){
+      setIsAuth(false);
+    }
+    else{
+      setIsAuth(true);
+    }
+  }
 
   const onUserNameChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setUsername(e.target.value);
@@ -28,6 +46,7 @@ const Login = () => {
     try {
       const res = await authViewModel.login({ username, password });
       dispatch(setUser({...res}));
+      router.push('/main');
     } catch (error) {
       setOpen(true);
     }
