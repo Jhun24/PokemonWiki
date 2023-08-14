@@ -1,0 +1,6 @@
+.Header {
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
+}

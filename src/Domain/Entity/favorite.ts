@@ -1,5 +1,5 @@
 import { FavoriteType } from './type/favorite';
-import { ItemDataType } from './type/item';
+import { ItemDetailType } from './type/item';
 import { PokemonDataType } from './type/pokemon';
 
 class FavoriteEntity {
@@ -34,7 +34,7 @@ class FavoriteEntity {
     }
     return this.item;
   }
-  saveItem({ category, id, image, name, url }: ItemDataType) {
+  saveItem({ category, id, image, name, url }: ItemDetailType) {
     const saveData: FavoriteType = {
       type: 'item',
       item: {
