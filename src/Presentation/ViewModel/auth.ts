@@ -5,6 +5,7 @@ import { AuthRepository } from '@/Domain/Repository/auth';
 import AuthRepositoryImpl from '@/Data/Repository/auth';
 import AuthDataSource from '@/Data/DataSource/auth';
 import UserEntity from '@/Domain/Entity/user';
+import GetUserCredentialUseCase from '@/Domain/UseCase/GetUserCredentialUseCase';
 
 type LoginType = {
   username: string;
@@ -13,7 +14,6 @@ type LoginType = {
 
 class AuthViewModel {
   private authRepository: AuthRepository;
-
   constructor() {
     this.authRepository = new AuthRepositoryImpl(new AuthDataSource());
   }
@@ -22,6 +22,13 @@ class AuthViewModel {
     const useCase = new AutoLoginUseCase(this.authRepository);
     const res = await useCase.execute();
     if (!res) return false;
+    return res;
+  }
+
+  async getCredential(): Promise<UserEntity | null> {
+    const useCase = new GetUserCredentialUseCase(this.authRepository);
+    const res = await useCase.execute();
+    if(res === null) return null;
     return res;
   }
 
