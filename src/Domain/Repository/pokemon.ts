@@ -20,4 +20,4 @@ interface PokemonRepository {
   ): Promise<void>;
 }
 
-export default PokemonRepository;
+export type { PokemonRepository };

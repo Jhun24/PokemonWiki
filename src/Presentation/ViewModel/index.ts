@@ -1,3 +1,4 @@
 import AuthViewModel from './auth';
+import DataViewModel from './data';
 
-export { AuthViewModel };
+export { AuthViewModel, DataViewModel };

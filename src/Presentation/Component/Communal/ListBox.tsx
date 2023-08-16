@@ -1,8 +1,10 @@
+import { ListBoxType } from '@/Presentation/Component/type';
+import style from '@/Presentation/Component/style/ListBox.module.css';
 
-const ListBox = () => {
+const ListBox = ({children}: ListBoxType ) => {
   return(
-    <div className="">
-      
+    <div className={style.ListBox}>
+      {children}
     </div>
   );
 };
