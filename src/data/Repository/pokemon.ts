@@ -11,15 +11,16 @@ class PokemonRepositoryImpl implements PokemonRepository {
 
 
   async getPokemon({ offset }: { offset: number }): Promise<PokemonEntity[]> {
+    const cacheRes = await this.apiDataSource.getCachePokemonData({offset});
+    if(cacheRes !== null) return cacheRes;
     const res = await this.apiDataSource.getPokemonDataList({ offset });
     let dataArray: PokemonEntity[] = [];
     for (const d of res.results) {
       const url = d.url;
+      await this.apiDataSource.cachePokemonData({url});
       const data = await this.apiDataSource.getPokemonDetailData({ url });
       dataArray.push(data);
     }
-
-    // await this.apiDataSource.savePokemonDataToLocal(dataArray);
     return dataArray;
   }
 

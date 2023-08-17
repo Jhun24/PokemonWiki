@@ -29,7 +29,7 @@ const Main = ({type}: MainType) => {
 
   const renderPokemon = (data: PokemonListType[]): JSX.Element[] => {
     const res =  data.map((element) => {
-      return <List id={element.id} image={element.sprites.front_default} name={element.name} type={element.types} onClick={onListItemClick}/>
+      return <List key={element.id} id={element.id} image={element.sprites.front_default} name={element.name} type={element.types} onClick={onListItemClick}/>
     });
     return res;
   }

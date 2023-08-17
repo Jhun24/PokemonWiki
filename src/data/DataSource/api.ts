@@ -15,13 +15,13 @@ class ApiDataSource {
     caches.open(CACHE_NAME).then((cache) => cache.add(url));
   }
 
-  async getCachePokemonListData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | boolean> {
+  async getCachePokemonData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | null> {
     const cacheStorage = await caches.open(CACHE_NAME);
     let resArray: PokemonApiResponseType[] = [];
     for(let i = offset; i < (offset + 20); i++){
       const cacheURL = `${POKEMON_SERVER_URL}/${i}`;
       const cachedResponse = await cacheStorage.match(cacheURL);
-      if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return false;
+      if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
       const res: PokemonApiResponseType = await cachedResponse.json();
       resArray.push(res);
     }
