@@ -9,9 +9,6 @@ class PokemonRepositoryImpl implements PokemonRepository {
     this.apiDataSource = new ApiDataSource();
   }
 
-  async cachePokemonData({ url }: { url: string; }): Promise<void> {
-    caches.open("v1").then((cache) => cache.add(url));
-  }
 
   async getPokemon({ offset }: { offset: number }): Promise<PokemonEntity[]> {
     const res = await this.apiDataSource.getPokemonDataList({ offset });
@@ -21,7 +18,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       const data = await this.apiDataSource.getPokemonDetailData({ url });
       dataArray.push(data);
     }
-    
+
     // await this.apiDataSource.savePokemonDataToLocal(dataArray);
     return dataArray;
   }

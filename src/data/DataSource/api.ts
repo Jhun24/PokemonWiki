@@ -4,23 +4,28 @@ import {
   ApiRequestType,
   ApiResponseType,
   CacheDataType,
+  CacheDataListType,
   ItemApiResponseData,
   PokemonApiResponseType,
 } from '@/Data/Model/api';
 
 class ApiDataSource {
-  async cachePokemonData({ offset }: CacheDataType): Promise<void> {
-    const cacheURL = `${POKEMON_SERVER_URL}/?offset=${(offset + 20)}&limit=$20`;
-    caches.open(CACHE_NAME).then((cache) => cache.add(cacheURL));
+
+  async cachePokemonData({ url }: CacheDataType): Promise<void> {
+    caches.open(CACHE_NAME).then((cache) => cache.add(url));
   }
 
-  async getCachePokemonData({ offset }: CacheDataType): Promise<ApiResponseType | boolean> {
-    const cacheURL = `${POKEMON_SERVER_URL}/?offset=${offset}&limit=$20`;
+  async getCachePokemonListData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | boolean> {
     const cacheStorage = await caches.open(CACHE_NAME);
-    const cachedResponse = await cacheStorage.match(cacheURL);
-    if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return false;
-    const res: ApiResponseType = await cachedResponse.json();
-    return res;
+    let resArray: PokemonApiResponseType[] = [];
+    for(let i = offset; i < (offset + 20); i++){
+      const cacheURL = `${POKEMON_SERVER_URL}/${i}`;
+      const cachedResponse = await cacheStorage.match(cacheURL);
+      if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return false;
+      const res: PokemonApiResponseType = await cachedResponse.json();
+      resArray.push(res);
+    }
+    return resArray;
   }
 
   async getPokemonDataList({

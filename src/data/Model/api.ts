@@ -16,8 +16,13 @@ type ApiResponseType = {
 };
 
 type CacheDataType = {
+  url: string;
+}
+
+type CacheDataListType = {
   offset: number;
 }
+
 
 type ItemApiResponseData = {
   attributes: NameAPIResource[];
@@ -169,6 +174,7 @@ export type {
   ApiRequestType,
   ApiResponseType,
   CacheDataType,
+  CacheDataListType,
   ItemApiResponseData,
   NameAPIResource,
   PokemonApiResponseType,
