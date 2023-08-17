@@ -5,4 +5,8 @@ const ITEM_SERVER_URL = '';
 const POKEMON_SERVER_URL = 'https://pokeapi.co/api/v2/pokemon';
 // URL
 
-export { AUTH_URL, IMAGE_URL, ITEM_SERVER_URL, POKEMON_SERVER_URL };
+const CACHE_VERSION = 1;
+const CACHE_NAME = `pokemonWiki-${CACHE_VERSION}`;
+// Cache
+
+export { CACHE_NAME, CACHE_VERSION, AUTH_URL, IMAGE_URL, ITEM_SERVER_URL, POKEMON_SERVER_URL };

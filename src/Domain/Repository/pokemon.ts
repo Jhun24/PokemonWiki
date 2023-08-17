@@ -13,7 +13,6 @@ interface PokemonRepository {
   getPokemonInFavorite({
     username,
   }: GetPokemonInFavoriteType): Promise<PokemonEntity[]>;
-  getPokemonLocalData({ offset }: GetPokemonType): Promise<PokemonEntity[]>;
   savePokemonToFavorite(
     username: string,
     pokemonEntity: PokemonEntity

@@ -15,6 +15,10 @@ type ApiResponseType = {
   results: NameAPIResource[];
 };
 
+type CacheDataType = {
+  offset: number;
+}
+
 type ItemApiResponseData = {
   attributes: NameAPIResource[];
   baby_trigger_for: APIResource;
@@ -164,6 +168,7 @@ export type {
   APIResource,
   ApiRequestType,
   ApiResponseType,
+  CacheDataType,
   ItemApiResponseData,
   NameAPIResource,
   PokemonApiResponseType,

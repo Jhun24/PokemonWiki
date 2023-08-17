@@ -1,8 +1,1 @@
-import {
-  AUTH_URL,
-  IMAGE_URL,
-  ITEM_SERVER_URL,
-  POKEMON_SERVER_URL,
-} from './server';
-
-export { AUTH_URL, IMAGE_URL, ITEM_SERVER_URL, POKEMON_SERVER_URL };
+export * from './server';

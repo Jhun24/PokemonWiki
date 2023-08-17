@@ -1,14 +1,28 @@
-import { ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/Const/.';
+import { CACHE_NAME, ITEM_SERVER_URL, POKEMON_SERVER_URL } from '@/Const';
 import {
   APIResource,
   ApiRequestType,
   ApiResponseType,
+  CacheDataType,
   ItemApiResponseData,
   PokemonApiResponseType,
 } from '@/Data/Model/api';
-import { resolve } from 'path';
 
 class ApiDataSource {
+  async cachePokemonData({ offset }: CacheDataType): Promise<void> {
+    const cacheURL = `${POKEMON_SERVER_URL}/?offset=${(offset + 20)}&limit=$20`;
+    caches.open(CACHE_NAME).then((cache) => cache.add(cacheURL));
+  }
+
+  async getCachePokemonData({ offset }: CacheDataType): Promise<ApiResponseType | boolean> {
+    const cacheURL = `${POKEMON_SERVER_URL}/?offset=${offset}&limit=$20`;
+    const cacheStorage = await caches.open(CACHE_NAME);
+    const cachedResponse = await cacheStorage.match(cacheURL);
+    if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return false;
+    const res: ApiResponseType = await cachedResponse.json();
+    return res;
+  }
+
   async getPokemonDataList({
     next,
     limit = 20,

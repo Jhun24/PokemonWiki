@@ -1,12 +1,18 @@
 import {PokemonRepository} from '@/Domain/Repository/pokemon';
 import PokemonEntity from '@/Domain/Entity/pokemon';
 import ApiDataSource from '@/Data/DataSource/api';
+import { CACHE_NAME, CACHE_VERSION, POKEMON_SERVER_URL} from '@/Const';
 
 class PokemonRepositoryImpl implements PokemonRepository {
   private apiDataSource: ApiDataSource
   constructor() {
     this.apiDataSource = new ApiDataSource();
   }
+
+  async cachePokemonData({ url }: { url: string; }): Promise<void> {
+    caches.open("v1").then((cache) => cache.add(url));
+  }
+
   async getPokemon({ offset }: { offset: number }): Promise<PokemonEntity[]> {
     const res = await this.apiDataSource.getPokemonDataList({ offset });
     let dataArray: PokemonEntity[] = [];
@@ -15,19 +21,9 @@ class PokemonRepositoryImpl implements PokemonRepository {
       const data = await this.apiDataSource.getPokemonDetailData({ url });
       dataArray.push(data);
     }
+    
     // await this.apiDataSource.savePokemonDataToLocal(dataArray);
     return dataArray;
-  }
-
-  async getPokemonLocalData({
-    offset,
-  }: {
-    offset: number;
-  }): Promise<PokemonEntity[]> {
-    const localData = await this.apiDataSource.getPokemonLocalDataList({
-      offset,
-    });
-    return localData;
   }
 
   getPokemonInFavorite({
