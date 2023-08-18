@@ -9,6 +9,8 @@ import {
   PokemonApiResponseType,
 } from '@/Data/Model/api';
 
+const LIMIT = 5;
+
 class ApiDataSource {
 
   async cachePokemonData({ url }: CacheDataType): Promise<void> {
@@ -18,7 +20,7 @@ class ApiDataSource {
   async getCachePokemonData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | null> {
     const cacheStorage = await caches.open(CACHE_NAME);
     let resArray: PokemonApiResponseType[] = [];
-    for(let i = offset; i < (offset + 10); i++){
+    for(let i = offset; i < (offset + LIMIT); i++){
       const cacheURL = `${POKEMON_SERVER_URL}/${i}`;
       const cachedResponse = await cacheStorage.match(cacheURL);
       if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
@@ -30,7 +32,7 @@ class ApiDataSource {
 
   async getPokemonDataList({
     next,
-    limit = 10,
+    limit = LIMIT,
     offset,
   }: ApiRequestType): Promise<ApiResponseType> {
     const res = await fetch(
@@ -66,7 +68,7 @@ class ApiDataSource {
   async getItemDataList({
     offset,
     next,
-    limit = 20,
+    limit = LIMIT,
   }: ApiRequestType): Promise<ApiResponseType> {
     const res = await fetch(
       next ?? `${ITEM_SERVER_URL}/?offset=${offset}&limit=${limit}`,

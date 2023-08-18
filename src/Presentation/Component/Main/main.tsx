@@ -1,7 +1,8 @@
-import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject } from 'react';
+import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject, CSSProperties} from 'react';
 import { List, ListBox } from '@/Presentation/Component';
 import { MainType, PokemonListType, ItemListType } from '@/Presentation/Component/type';
 import { DataViewModel } from '@/Presentation/ViewModel';
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 import style from '@/Presentation/Component/style/Main.module.css';
 
@@ -13,17 +14,23 @@ const Main = ({type}: MainType) => {
   const [needFetch, setNeedFetch] = useState(false);
   const dataViewModel = new DataViewModel();
   const scrollRef = useRef<HTMLDivElement>();
-
+  const LIMIT = 5;
+  const override: CSSProperties = {
+    width: "30px",
+    height: "30px",
+    padding: "10px",
+    borderColor: "#A9A9A9",
+  };
 
   const getPokemonData = async () => {
     const res: PokemonListType[] = await dataViewModel.getPokemonData({offset});
-    setPokemonData(res);
-    setOffset(offset + 10);
+    setPokemonData(pokemonData.concat(res));
+    setOffset(offset + LIMIT);
   };
 
   const getItemList = async () => {
 
-    setOffset(offset + 10);
+    setOffset(offset + LIMIT);
   };
 
   const onListItemClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -54,13 +61,28 @@ const Main = ({type}: MainType) => {
   }, []);
 
   useEffect(() => {
+    if(offset < 20){
+      setNeedFetch(true);
+    }
+  }, [offset])
 
+  useEffect(() => {
+    if(needFetch){
+      getPokemonData().then(() => setNeedFetch(false));
+    }
   }, [needFetch]);
 
   return(
     <div className={style.List} onScroll={handleScroll} ref={scrollRef as RefObject<HTMLDivElement>}>
       <ListBox>
           {renderPokemon(pokemonData)}
+          <ScaleLoader
+            color={"#A9A9A9"}
+            loading={needFetch}
+            cssOverride={override}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
       </ListBox>
     </div>
   );
