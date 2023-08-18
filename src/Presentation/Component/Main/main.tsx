@@ -25,7 +25,6 @@ const Main = ({type}: MainType) => {
   const getPokemonData = async () => {
     const res: PokemonListType[] = await dataViewModel.getPokemonData({offset});
     setPokemonData(pokemonData.concat(res));
-    setOffset(offset + LIMIT);
   };
 
   const getItemList = async () => {
@@ -48,7 +47,7 @@ const Main = ({type}: MainType) => {
     if(scrollRef.current){
       const listNowHeight = scrollRef.current.scrollTop;
       const listHeight = scrollRef.current.scrollHeight;
-      if((listHeight - 400) <= listNowHeight){
+      if((listHeight - 1200) <= listNowHeight){
         setNeedFetch(true);
       }
     }
@@ -61,14 +60,17 @@ const Main = ({type}: MainType) => {
   }, []);
 
   useEffect(() => {
-    if(offset < 20){
+    if(offset < 50){
       setNeedFetch(true);
     }
   }, [offset])
 
   useEffect(() => {
     if(needFetch){
-      getPokemonData().then(() => setNeedFetch(false));
+      getPokemonData().then(() => {
+        setNeedFetch(false)
+        setOffset(offset + LIMIT);
+      });
     }
   }, [needFetch]);
 
