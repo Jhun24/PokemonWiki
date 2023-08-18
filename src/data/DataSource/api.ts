@@ -18,7 +18,7 @@ class ApiDataSource {
   async getCachePokemonData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | null> {
     const cacheStorage = await caches.open(CACHE_NAME);
     let resArray: PokemonApiResponseType[] = [];
-    for(let i = offset; i < (offset + 20); i++){
+    for(let i = offset; i < (offset + 10); i++){
       const cacheURL = `${POKEMON_SERVER_URL}/${i}`;
       const cachedResponse = await cacheStorage.match(cacheURL);
       if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
@@ -30,7 +30,7 @@ class ApiDataSource {
 
   async getPokemonDataList({
     next,
-    limit = 20,
+    limit = 10,
     offset,
   }: ApiRequestType): Promise<ApiResponseType> {
     const res = await fetch(
@@ -41,21 +41,6 @@ class ApiDataSource {
       }
     );
     return await res.json();
-  }
-
-  getPokemonLocalDataList({
-    offset,
-    limit = 20,
-  }: ApiRequestType): Promise<PokemonApiResponseType[]> {
-    const stringLocalData: string | null = localStorage.getItem('pokemon');
-    if (stringLocalData === null) return new Promise((resolve) => resolve([]));
-    const pokemonLocalData: PokemonApiResponseType[] =
-      JSON.parse(stringLocalData);
-    const returnData: PokemonApiResponseType[] = pokemonLocalData.slice(
-      offset,
-      offset + limit
-    );
-    return new Promise((resolve) => resolve(returnData));
   }
 
   async getPokemonDetailData({

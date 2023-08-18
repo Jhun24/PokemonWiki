@@ -43,6 +43,10 @@ class AuthRepositoryImpl implements AuthRepository {
         password: '9uQFF1Lh',
         username: 'atuny0',
       },
+      {
+        password: 't',
+        username: 't',
+      },
     ];
 
     for (const d of dummyData) {

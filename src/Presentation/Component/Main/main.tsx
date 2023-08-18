@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEventHandler } from 'react';
+import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject } from 'react';
 import { List, ListBox } from '@/Presentation/Component';
 import { MainType, PokemonListType, ItemListType } from '@/Presentation/Component/type';
 import { DataViewModel } from '@/Presentation/ViewModel';
@@ -10,17 +10,20 @@ const Main = ({type}: MainType) => {
   const [pokemonData, setPokemonData] = useState<PokemonListType[]>([]);
   const [itemData, setItemData] = useState<ItemListType[]>([]);
   const [offset, setOffset] = useState(0);
+  const [needFetch, setNeedFetch] = useState(false);
   const dataViewModel = new DataViewModel();
+  const scrollRef = useRef<HTMLDivElement>();
+
 
   const getPokemonData = async () => {
     const res: PokemonListType[] = await dataViewModel.getPokemonData({offset});
     setPokemonData(res);
-    setOffset(offset + 20);
+    setOffset(offset + 10);
   };
 
   const getItemList = async () => {
 
-    setOffset(offset + 20);
+    setOffset(offset + 10);
   };
 
   const onListItemClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -34,14 +37,28 @@ const Main = ({type}: MainType) => {
     return res;
   }
 
+  const handleScroll: UIEventHandler<HTMLDivElement> = () => {
+    if(scrollRef.current){
+      const listNowHeight = scrollRef.current.scrollTop;
+      const listHeight = scrollRef.current.scrollHeight;
+      if((listHeight - 400) <= listNowHeight){
+        setNeedFetch(true);
+      }
+    }
+  };
+
   useEffect(() => {
     if(type === "pokemon"){
       getPokemonData();
     }
   }, []);
 
+  useEffect(() => {
+
+  }, [needFetch]);
+
   return(
-    <div className={style.List}>
+    <div className={style.List} onScroll={handleScroll} ref={scrollRef as RefObject<HTMLDivElement>}>
       <ListBox>
           {renderPokemon(pokemonData)}
       </ListBox>
