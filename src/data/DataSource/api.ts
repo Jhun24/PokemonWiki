@@ -13,8 +13,21 @@ const LIMIT = 5;
 
 class ApiDataSource {
 
-  async cachePokemonData({ url }: CacheDataType): Promise<void> {
+  async cacheData({ url }: CacheDataType): Promise<void> {
     caches.open(CACHE_NAME).then((cache) => cache.add(url));
+  }
+
+  async getCacheItemData({ offset }: CacheDataListType): Promise<ItemApiResponseData[] | null> {
+    const cacheStorage = await caches.open(CACHE_NAME);
+    let resArray: ItemApiResponseData[] = [];
+    for(let i = offset; i < (offset + LIMIT); i++){
+      const cacheURL = `${ITEM_SERVER_URL}/${i}`;
+      const cachedResponse = await cacheStorage.match(cacheURL);
+      if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
+      const res: ItemApiResponseData = await cachedResponse.json();
+      resArray.push(res);
+    }
+    return resArray;
   }
 
   async getCachePokemonData({ offset }: CacheDataListType): Promise<PokemonApiResponseType[] | null> {
@@ -78,48 +91,6 @@ class ApiDataSource {
       }
     );
     return await res.json();
-  }
-
-  getItemLocalDataList({
-    offset,
-    limit = 20,
-  }: ApiRequestType): Promise<ItemApiResponseData[]> {
-    const stringLocalData: string | null = localStorage.getItem('item');
-    if (stringLocalData === null) return new Promise((resolve) => resolve([]));
-    const itemLocalData: ItemApiResponseData[] = JSON.parse(stringLocalData);
-    const returnData: ItemApiResponseData[] = itemLocalData.slice(
-      offset,
-      offset + limit
-    );
-    return new Promise((resolve) => resolve(returnData));
-  }
-
-  savePokemonDataToLocal(
-    pokemonData: PokemonApiResponseType[]
-  ): Promise<number> {
-    const stringLocalData: string | null = localStorage.getItem('pokemon');
-    if (stringLocalData === null) {
-      localStorage.setItem('pokemon', JSON.stringify(pokemonData));
-      return new Promise((resolve) => resolve(20));
-    }
-    const pokemonLocalData: PokemonApiResponseType[] =
-      JSON.parse(stringLocalData);
-    const saveData: PokemonApiResponseType[] =
-      pokemonLocalData.concat(pokemonData);
-    localStorage.setItem('pokemon', JSON.stringify(saveData));
-    return new Promise((resolve) => resolve(saveData.length));
-  }
-
-  saveItemDataToLocal(itemData: ItemApiResponseData[]): Promise<number> {
-    const stringLocalData: string | null = localStorage.getItem('item');
-    if (stringLocalData === null) {
-      localStorage.setItem('item', JSON.stringify(itemData));
-      return new Promise((resolve) => resolve(20));
-    }
-    const itemLocalData: ItemApiResponseData[] = JSON.parse(stringLocalData);
-    const saveData: ItemApiResponseData[] = itemLocalData.concat(itemData);
-    localStorage.setItem('item', JSON.stringify(saveData));
-    return new Promise((resolve) => resolve(saveData.length));
   }
 }
 

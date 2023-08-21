@@ -1,7 +1,4 @@
 
-type MainType = {
-  type: "favorite" | "pokemon" | "item";
-}
 
 type PokemonType = {
   slot: number;
@@ -150,4 +147,4 @@ type ItemListType = {
 };
 
 
-export type { MainType, PokemonListType, ItemListType};
+export type { PokemonListType, ItemListType};

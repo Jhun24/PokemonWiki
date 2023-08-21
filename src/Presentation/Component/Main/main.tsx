@@ -1,16 +1,17 @@
 import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject, CSSProperties} from 'react';
 import { List, ListBox } from '@/Presentation/Component';
-import { MainType, PokemonListType, ItemListType } from '@/Presentation/Component/type';
+import { PokemonListType, ItemListType } from '@/Presentation/Component/type';
 import { DataViewModel } from '@/Presentation/ViewModel';
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 import style from '@/Presentation/Component/style/Main.module.css';
 
-const Main = ({type}: MainType) => {
+const Main = () => {
 
   const [pokemonData, setPokemonData] = useState<PokemonListType[]>([]);
   const [itemData, setItemData] = useState<ItemListType[]>([]);
   const [offset, setOffset] = useState(0);
+  const [type, setType] = useState<"favorite" | "pokemon" | "item">("pokemon");
   const [needFetch, setNeedFetch] = useState(false);
   const dataViewModel = new DataViewModel();
   const scrollRef = useRef<HTMLDivElement>();
@@ -75,18 +76,23 @@ const Main = ({type}: MainType) => {
   }, [needFetch]);
 
   return(
-    <div className={style.List} onScroll={handleScroll} ref={scrollRef as RefObject<HTMLDivElement>}>
-      <ListBox>
-          {renderPokemon(pokemonData)}
-          <ScaleLoader
-            color={"#A9A9A9"}
-            loading={needFetch}
-            cssOverride={override}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-      </ListBox>
-    </div>
+    <>
+      <div className={style.SelectBox}>
+        
+      </div>
+      <div className={style.List} onScroll={handleScroll} ref={scrollRef as RefObject<HTMLDivElement>}>
+        <ListBox>
+            {renderPokemon(pokemonData)}
+            <ScaleLoader
+              color={"#A9A9A9"}
+              loading={needFetch}
+              cssOverride={override}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+        </ListBox>
+      </div>
+    </>
   );
 };
 

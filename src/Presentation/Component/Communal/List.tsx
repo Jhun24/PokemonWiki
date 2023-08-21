@@ -3,12 +3,15 @@ import cn from 'classnames';
 
 import style from '@/Presentation/Component/style/List.module.css';
 
-const List = ({id, image, name, type = [], category, onClick}: ListContentType) => {
+const List = ({id, image, name, type, category, onClick}: ListContentType) => {
   const checkData = () => {
     if(!!type){
       return type.map((d) => {
         return `${d.type.name}`;
       })
+    }
+    if(!!category){
+      
     }
   }
   const beautyfi = (d: string[] | undefined) => {

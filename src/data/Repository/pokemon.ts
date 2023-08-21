@@ -17,7 +17,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
     let dataArray: PokemonEntity[] = [];
     for (const d of res.results) {
       const url = d.url;
-      await this.apiDataSource.cachePokemonData({url});
+      await this.apiDataSource.cacheData({url});
       const data = await this.apiDataSource.getPokemonDetailData({ url });
       dataArray.push(data);
     }

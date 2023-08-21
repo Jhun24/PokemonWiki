@@ -9,10 +9,13 @@ class ItemRepositoryImpl implements ItemRepository {
     this.apiDataSource = new ApiDataSource();
   }
   async getItem({ offset }: { offset: number }): Promise<ItemEntity[]> {
+    const cacheRes = await this.apiDataSource.getCacheItemData({offset});
+    if(cacheRes !== null) return cacheRes;
     const res = await this.apiDataSource.getItemDataList({ offset });
     let dataArray: ItemEntity[] = [];
     for (const d of res.results) {
       const url = d.url;
+      await this.apiDataSource.cacheData({url});
       const data = await this.apiDataSource.getItemDetailData({ url });
       dataArray.push(data);
     }
@@ -20,10 +23,6 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   getItemInFavorite({ username }: { username: string }): Promise<ItemEntity[]> {
-    return new Promise((resolve) => resolve([]));
-  }
-
-  getItemLocalData({ offset }: { offset: number }): Promise<ItemEntity[]> {
     return new Promise((resolve) => resolve([]));
   }
 
