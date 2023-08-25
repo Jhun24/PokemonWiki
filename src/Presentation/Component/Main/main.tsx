@@ -41,7 +41,7 @@ const Main = () => {
 
   const renderItem = (data: ItemListType[]): JSX.Element[] => {
     const res =  data.map((element) => {
-      return <List key={element.id} id={element.id} image={""} name={""} category={""} onClick={onListItemClick}/>
+      return <List key={element.id} id={element.id} image={element.sprites.default} name={element.name} category={element.category} onClick={onListItemClick}/>
     });
     return res;
   }
@@ -57,14 +57,19 @@ const Main = () => {
     if(scrollRef.current){
       const listNowHeight = scrollRef.current.scrollTop;
       const listHeight = scrollRef.current.scrollHeight;
-      if((listHeight - 1200) <= listNowHeight){
+      console.log(listHeight - 1400);
+      console.log(listNowHeight);
+      if((listHeight - 1400) <= listNowHeight){
+        console.log("hi");
         setNeedFetch(true);
       }
     }
   };
 
   const handleSelect = (value: "pokemon" | "item"): void => {
+    setNeedFetch(false);
     setType(value);
+    setNeedFetch(true);
   }
 
   useEffect(() => {

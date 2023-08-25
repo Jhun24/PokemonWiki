@@ -18,7 +18,7 @@ type ListContentType = {
   image: string;
   name: string;
   type?: PokemonType[];
-  category?: string;
+  category?: NameAPIResource;
   onClick: MouseEventHandler<HTMLDivElement>;
 }
 
