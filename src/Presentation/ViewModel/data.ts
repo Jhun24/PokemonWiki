@@ -21,6 +21,11 @@ class DataViewModel {
     const res = await this.pokemonRepository.getPokemon({offset});
     return res;
   }
+
+  async getItemData({offset}: GetDataType): Promise<ItemEntity[]>{
+    const res = await this.itemRepository.getItem({offset});
+    return res;
+  }
 }
 
 export default DataViewModel;

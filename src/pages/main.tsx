@@ -4,7 +4,7 @@ export default function List() {
   return (
     <div className="List">
       <Header />
-      <Main type="pokemon" />
+      <Main />
     </div>
   );
 }

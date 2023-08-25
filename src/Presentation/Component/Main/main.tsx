@@ -1,4 +1,5 @@
-import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject, CSSProperties} from 'react';
+import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject, CSSProperties, SelectHTMLAttributes} from 'react';
+import { Select } from '@radix-ui/themes';
 import { List, ListBox } from '@/Presentation/Component';
 import { PokemonListType, ItemListType } from '@/Presentation/Component/type';
 import { DataViewModel } from '@/Presentation/ViewModel';
@@ -10,7 +11,8 @@ const Main = () => {
 
   const [pokemonData, setPokemonData] = useState<PokemonListType[]>([]);
   const [itemData, setItemData] = useState<ItemListType[]>([]);
-  const [offset, setOffset] = useState(0);
+  const [pokemonOffset, setPokemonOffset] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
   const [type, setType] = useState<"favorite" | "pokemon" | "item">("pokemon");
   const [needFetch, setNeedFetch] = useState(false);
   const dataViewModel = new DataViewModel();
@@ -24,17 +26,24 @@ const Main = () => {
   };
 
   const getPokemonData = async () => {
-    const res: PokemonListType[] = await dataViewModel.getPokemonData({offset});
+    const res: PokemonListType[] = await dataViewModel.getPokemonData({offset: pokemonOffset});
     setPokemonData(pokemonData.concat(res));
   };
 
   const getItemList = async () => {
-
-    setOffset(offset + LIMIT);
+    const res: ItemListType[] = await dataViewModel.getItemData({offset: itemOffset});
+    setItemData(itemData.concat(res));
   };
 
   const onListItemClick: MouseEventHandler<HTMLDivElement> = (e) => {
 
+  }
+
+  const renderItem = (data: ItemListType[]): JSX.Element[] => {
+    const res =  data.map((element) => {
+      return <List key={element.id} id={element.id} image={""} name={""} category={""} onClick={onListItemClick}/>
+    });
+    return res;
   }
 
   const renderPokemon = (data: PokemonListType[]): JSX.Element[] => {
@@ -54,35 +63,58 @@ const Main = () => {
     }
   };
 
+  const handleSelect = (value: "pokemon" | "item"): void => {
+    setType(value);
+  }
+
   useEffect(() => {
     if(type === "pokemon"){
       getPokemonData();
     }
+    else if(type === "item"){
+      getItemList();
+    }
   }, []);
 
   useEffect(() => {
-    if(offset < 50){
-      setNeedFetch(true);
-    }
-  }, [offset])
+    if(type === "pokemon" && pokemonOffset < 50) setNeedFetch(true);
+    if(type === "item" && itemOffset < 50) setNeedFetch(true);
+  }, [pokemonOffset, itemOffset])
 
   useEffect(() => {
     if(needFetch){
-      getPokemonData().then(() => {
-        setNeedFetch(false)
-        setOffset(offset + LIMIT);
-      });
+      if(type === "pokemon"){
+        getPokemonData().then(() => {
+          setNeedFetch(false)
+          setPokemonOffset(pokemonOffset + LIMIT);
+        });
+      }
+      else if(type === "item"){
+        getItemList().then(() => {
+          setNeedFetch(false);
+          setItemOffset(itemOffset + LIMIT);
+        });
+      }
     }
   }, [needFetch]);
 
   return(
     <>
       <div className={style.SelectBox}>
-        
+        <Select.Root onValueChange={handleSelect}>
+          <Select.Trigger placeholder={type} />
+          <Select.Content>
+            <Select.Group>
+              <Select.Label>종류</Select.Label>
+              <Select.Item value="pokemon">Pokemon</Select.Item>
+              <Select.Item value="item">Item</Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
       </div>
       <div className={style.List} onScroll={handleScroll} ref={scrollRef as RefObject<HTMLDivElement>}>
         <ListBox>
-            {renderPokemon(pokemonData)}
+            {(type === "pokemon")? (renderPokemon(pokemonData)) : (renderItem(itemData))}
             <ScaleLoader
               color={"#A9A9A9"}
               loading={needFetch}
