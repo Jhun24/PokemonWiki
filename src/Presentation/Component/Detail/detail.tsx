@@ -1,26 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, CSSProperties } from 'react';
 import { useRouter } from 'next/router';
 import { useAppSelector } from '@/Presentation/Redux/hook';
 import DetailPokemon from './pokemon';
 import DetailItem from './item';
 import { PokemonListType, ItemListType } from '../type';
 import { DataViewModel } from '@/Presentation/ViewModel';
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 import style from '@/Presentation/Component/style/Detail.module.css';
+
 const Detail = () => {
   const [pokemon, setPokemon] = useState<PokemonListType>();
   const [item, setItem] = useState<ItemListType>();
+  const [isLoading, setIsLoading] = useState(true);
   const { type, id } = useAppSelector((state) => state.detail);
   const dataViewModel = new DataViewModel();
   const router = useRouter();
+  const override: CSSProperties = {
+    width: "150px",
+    height: "150px",
+    padding: "10px",
+    borderColor: "#A9A9A9",
+  };
 
   const getPokemon = async () => {
     const res = await dataViewModel.getPokemon({id});
     setPokemon(res);
+    setIsLoading(false);
   }
   
   const getItem = async () => {
     const res = await dataViewModel.getItem({id});
     setItem(res);
+    setIsLoading(false);
   }
 
   const renderData = () => {
@@ -44,6 +56,13 @@ const Detail = () => {
   return(
     <div className={style.Detail}>
       {renderData()}
+      <ScaleLoader
+        color={"#A9A9A9"}
+        loading={isLoading}
+        cssOverride={override}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
     </div>
   );
 };
