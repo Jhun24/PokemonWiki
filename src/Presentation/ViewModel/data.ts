@@ -9,6 +9,10 @@ type GetDataType = {
   offset: number;
 };
 
+type GetDetailType = {
+  id: number;
+};
+
 class DataViewModel {
   private pokemonRepository: PokemonRepository;
   private itemRepository: ItemRepository; 
@@ -19,6 +23,16 @@ class DataViewModel {
 
   async getPokemonData({offset}: GetDataType): Promise<PokemonEntity[]>{
     const res = await this.pokemonRepository.getPokemon({offset});
+    return res;
+  }
+
+  async getPokemon({id}: GetDetailType): Promise<PokemonEntity>{
+    const res = await this.pokemonRepository.getPokemonDetail({id});
+    return res;
+  }
+
+  async getItem({id}: GetDetailType): Promise<ItemEntity>{
+    const res = await this.itemRepository.getItemDetail({id});
     return res;
   }
 

@@ -24,6 +24,14 @@ class PokemonRepositoryImpl implements PokemonRepository {
     return dataArray;
   }
 
+  async getPokemonDetail({ id }: { id: number; }): Promise<PokemonEntity> {
+    const url = `${POKEMON_SERVER_URL}/${id}`;
+    const cacheRes = await this.apiDataSource.getCachePokemon({url});
+    if(cacheRes !== null) return cacheRes;
+    const res = await this.apiDataSource.getPokemonDetailData({url});
+    return res;
+  }
+
   getPokemonInFavorite({
     username,
   }: {

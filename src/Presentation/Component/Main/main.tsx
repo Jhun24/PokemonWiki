@@ -1,8 +1,11 @@
-import { useState, useEffect, MouseEventHandler, UIEventHandler, useRef, RefObject, CSSProperties, SelectHTMLAttributes} from 'react';
+import { useState, useEffect, UIEventHandler, useRef, RefObject, CSSProperties } from 'react';
+import { useRouter } from 'next/router';
 import { Select } from '@radix-ui/themes';
 import { List, ListBox } from '@/Presentation/Component';
+import { useAppDispatch } from '@/Presentation/Redux/hook';
 import { PokemonListType, ItemListType } from '@/Presentation/Component/type';
 import { DataViewModel } from '@/Presentation/ViewModel';
+import { setDetail } from '@/Presentation/Redux/reducer/detail';
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 import style from '@/Presentation/Component/style/Main.module.css';
@@ -17,6 +20,8 @@ const Main = () => {
   const [needFetch, setNeedFetch] = useState(false);
   const dataViewModel = new DataViewModel();
   const scrollRef = useRef<HTMLDivElement>();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const LIMIT = 5;
   const override: CSSProperties = {
     width: "30px",
@@ -35,20 +40,21 @@ const Main = () => {
     setItemData(itemData.concat(res));
   };
 
-  const onListItemClick: MouseEventHandler<HTMLDivElement> = (e) => {
-
+  const onListItemClick = (key: number, type: string): void => {
+    dispatch(setDetail({id: key, type}));
+    router.push("/detail");
   }
 
   const renderItem = (data: ItemListType[]): JSX.Element[] => {
     const res =  data.map((element) => {
-      return <List key={element.id} id={element.id} image={element.sprites.default} name={element.name} category={element.category} onClick={onListItemClick}/>
+      return <List key={element.id} id={element.id} image={element.sprites.default} name={element.name} category={element.category} onClick={(e) => onListItemClick(element.id, type)}/>
     });
     return res;
   }
 
   const renderPokemon = (data: PokemonListType[]): JSX.Element[] => {
     const res =  data.map((element) => {
-      return <List key={element.id} id={element.id} image={element.sprites.front_default} name={element.name} type={element.types} onClick={onListItemClick}/>
+      return <List key={element.id} id={element.id} image={element.sprites.front_default} name={element.name} type={element.types} onClick={(e) => onListItemClick(element.id, type)}/>
     });
     return res;
   }
@@ -57,9 +63,7 @@ const Main = () => {
     if(scrollRef.current){
       const listNowHeight = scrollRef.current.scrollTop;
       const listHeight = scrollRef.current.scrollHeight;
-      console.log(listHeight - 1400);
-      console.log(listNowHeight);
-      if((listHeight - 1400) <= listNowHeight){
+      if((listHeight - 1200) <= listNowHeight){
         console.log("hi");
         setNeedFetch(true);
       }

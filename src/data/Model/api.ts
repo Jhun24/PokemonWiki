@@ -23,6 +23,9 @@ type CacheDataListType = {
   offset: number;
 }
 
+type GetCacheType = {
+  url: string;
+}
 
 type ItemApiResponseData = {
   attributes: NameAPIResource[];
@@ -175,6 +178,7 @@ export type {
   ApiResponseType,
   CacheDataType,
   CacheDataListType,
+  GetCacheType,
   ItemApiResponseData,
   NameAPIResource,
   PokemonApiResponseType,

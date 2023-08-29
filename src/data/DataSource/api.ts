@@ -5,6 +5,7 @@ import {
   ApiResponseType,
   CacheDataType,
   CacheDataListType,
+  GetCacheType,
   ItemApiResponseData,
   PokemonApiResponseType,
 } from '@/Data/Model/api';
@@ -16,6 +17,23 @@ class ApiDataSource {
   async cacheData({ url }: CacheDataType): Promise<void> {
     caches.open(CACHE_NAME).then((cache) => cache.add(url));
   }
+
+  async getCacheItem({ url }: GetCacheType): Promise<ItemApiResponseData | null> {
+    const cacheStorage = await caches.open(CACHE_NAME);
+    const cachedResponse = await cacheStorage.match(url);
+    if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
+    const res: ItemApiResponseData = await cachedResponse.json();
+    return res;
+  }
+
+  async getCachePokemon({ url }: GetCacheType): Promise<PokemonApiResponseType | null> {
+    const cacheStorage = await caches.open(CACHE_NAME);
+    const cachedResponse = await cacheStorage.match(url);
+    if(typeof cachedResponse === "undefined" || !cachedResponse.ok) return null;
+    const res: PokemonApiResponseType = await cachedResponse.json();
+    return res;
+  }
+
 
   async getCacheItemData({ offset }: CacheDataListType): Promise<ItemApiResponseData[] | null> {
     const cacheStorage = await caches.open(CACHE_NAME);

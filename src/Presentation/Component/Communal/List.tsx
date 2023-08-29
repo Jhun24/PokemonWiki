@@ -17,7 +17,7 @@ const List = ({id, image, name, type, category, onClick}: ListContentType) => {
     return JSON.stringify(d).replace("[", "").replace("]", "").replaceAll('"', "").replaceAll(',', ', ');
   }
   return (
-    <div className={cn(style.ListContent, style.BounceIn)}>
+    <div className={cn(style.ListContent, style.BounceIn)} onClick={onClick}>
       <h2>{id}</h2>
       <p>{name}</p>
       <p>{(!!type)? (beautyfi(checkType())): (category?.name)}</p>

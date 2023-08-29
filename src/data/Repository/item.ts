@@ -1,6 +1,7 @@
 import ItemEntity from '@/Domain/Entity/item';
 import ApiDataSource from '@/Data/DataSource/api';
 import { ItemRepository } from '@/Domain/Repository/item';
+import { ITEM_SERVER_URL } from '@/Const';
 
 class ItemRepositoryImpl implements ItemRepository {
   private apiDataSource: ApiDataSource;
@@ -20,6 +21,14 @@ class ItemRepositoryImpl implements ItemRepository {
       dataArray.push(data);
     }
     return dataArray;
+  }
+
+  async getItemDetail({ id }: { id: number; }): Promise<ItemEntity> {
+    const url = `${ITEM_SERVER_URL}/${id}`;
+    const cacheRes = await this.apiDataSource.getCacheItem({url});
+    if(cacheRes !== null) return cacheRes;
+    const res = await this.apiDataSource.getItemDetailData({url});
+    return res;
   }
 
   getItemInFavorite({ username }: { username: string }): Promise<ItemEntity[]> {

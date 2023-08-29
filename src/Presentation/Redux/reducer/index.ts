@@ -1,3 +1,4 @@
 import userReducer from './user';
+import detailReducer from './detail';
 
-export { userReducer };
+export { userReducer, detailReducer };

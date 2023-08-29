@@ -1,0 +1,52 @@
+.Detail {
+  width: 100%;
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DataBox{
+  width: auto;
+  height: auto;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.Name {
+  font-size: 36px;
+}
+
+.Info {
+  font-size: 24px;
+  line-height: 40px;
+}
+
+.ImageBox {
+  width: 250px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ImageBox > img {
+  width: 100px;
+}
+
+.Text {
+  font-size: 18px;
+}
+
+.TextBox{
+  width: 250px;
+  height: auto;
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}

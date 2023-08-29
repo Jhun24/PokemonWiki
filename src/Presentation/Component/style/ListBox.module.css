@@ -7,4 +7,5 @@
   margin-top: 10px;
   gap: 40px;
   padding-bottom: 100px;
+  overflow-y: hidden;
 }
