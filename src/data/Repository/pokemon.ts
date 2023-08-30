@@ -59,6 +59,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       );
     } else {
       let localPokemonData: PokemonEntity[] = JSON.parse(localStringData);
+      if(localPokemonData.length > 5) return Promise.reject("Pokemon Local Storage Over");
       localPokemonData.push(pokemonEntity);
       localStorage.setItem(
         `${username}-pokemon`,

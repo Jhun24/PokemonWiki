@@ -16,7 +16,7 @@ interface ItemRepository {
   getItem({ offset }: GetItemDataType): Promise<ItemEntity[]>;
   getItemDetail({ id }: GetItemDetailType): Promise<ItemEntity>;
   getItemInFavorite({ username }: GetItemInFavoriteType): Promise<ItemEntity[]>;
-  saveItemToFavorite(usernmae: string, itemEntity: ItemEntity): Promise<void>;
+  saveItemToFavorite(username: string, itemEntity: ItemEntity): Promise<void>;
 }
 
 export type { ItemRepository };

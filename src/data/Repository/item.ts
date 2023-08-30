@@ -36,12 +36,26 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   async saveItemToFavorite(
-    usernmae: string,
+    username: string,
     itemEntity: ItemEntity
   ): Promise<void> {
     const localStringData: string | null = localStorage.getItem(
-      `${usernmae}-item`
+      `${username}-item`
     );
+    if (localStringData === null) {
+      localStorage.setItem(
+        `${username}-item`,
+        JSON.stringify([itemEntity])
+      );
+    } else {
+      let localItemData: ItemEntity[] = JSON.parse(localStringData);
+      if(localItemData.length > 5) return Promise.reject("Item Local Storage Over");
+      localItemData.push(itemEntity);
+      localStorage.setItem(
+        `${username}-item`,
+        JSON.stringify(localItemData)
+      );
+    }
   }
 }
 
