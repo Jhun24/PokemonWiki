@@ -72,6 +72,15 @@ const Favorite = () => {
       fetchItem(username);
     }
   }, [type]);
+
+  useEffect(() => {
+    if(type === "pokemon"){
+      fetchPokemon(username);
+    }
+    else if(type === "item"){
+      fetchItem(username);
+    }
+  }, []);
   return(
     <>
       <div className={style.SelectBox}>

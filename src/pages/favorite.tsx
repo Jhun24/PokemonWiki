@@ -1,8 +1,10 @@
-import { Header } from "@/Presentation/Component";
+import { Header, Favorite } from "@/Presentation/Component";
 
 export default function FavoritePage(){
   return(
-    <Header />
-
+    <>
+      <Header />
+      <Favorite />
+    </>
   );
 }

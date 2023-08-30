@@ -14,6 +14,7 @@ const Detail = () => {
   const [item, setItem] = useState<ItemListType>();
   const [isLoading, setIsLoading] = useState(true);
   const { type, id } = useAppSelector((state) => state.detail);
+  const { username } = useAppSelector((state) => state.user);
   const dataViewModel = new DataViewModel();
   const router = useRouter();
   const override: CSSProperties = {
@@ -37,10 +38,10 @@ const Detail = () => {
 
   const renderData = () => {
     if(type === "pokemon" && !!pokemon){
-      return <DetailPokemon pokemon={pokemon}/>;
+      return <DetailPokemon username={username} pokemon={pokemon}/>;
     }
     else if (type === "item" && !!item){
-      return <DetailItem item={item}/>;
+      return <DetailItem username={username} item={item}/>;
     }
     return <></>;
   }

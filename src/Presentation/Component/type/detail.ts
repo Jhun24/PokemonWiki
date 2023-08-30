@@ -6,10 +6,12 @@ type DetailProps = {
 }
 
 type DetailPokemonProps = {
+  username: string;
   pokemon: PokemonListType;
 }
 
 type DetailItemProps = {
+  username: string;
   item: ItemListType;
 }
 

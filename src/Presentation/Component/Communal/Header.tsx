@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, MouseEventHandler } from 'react';
 import { useRouter } from 'next/router'
 import { useAppSelector, useAppDispatch } from '@/Presentation/Redux/hook';
 import { setUser } from '@/Presentation/Redux/reducer/user';
@@ -25,6 +25,15 @@ const Header = () => {
     }
   }
 
+  const handleFavorite = () => {
+    router.push("/favorite");
+  }
+
+  const handleLogout = async () => {
+    await authViewModel.logout();
+    router.push("/");
+  }
+
   useEffect(() => {
     isUserAuth();
   }, [])
@@ -42,8 +51,8 @@ const Header = () => {
               <p>이름:  {user.username}</p>
               <p>이메일:  {user.email}</p>
               <div className={style.PopoverBtnBox}>
-                <div className={cn(style.PopoverFavorite, style.PopoverBtn)}>보관함</div>
-                <div className={cn(style.PopoverLogout, style.PopoverBtn)}>로그아웃</div>
+                <div className={cn(style.PopoverFavorite, style.PopoverBtn)} onClick={handleFavorite}>보관함</div>
+                <div className={cn(style.PopoverLogout, style.PopoverBtn)} onClick={handleLogout}>로그아웃</div>
               </div>
             </div>
             <Popover.Close className={style.PopoverClose} aria-label="Close">
